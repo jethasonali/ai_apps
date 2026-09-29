@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>System X AI Booking Triage Demo</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand">
+          <p class="eyebrow">System X</p>
+          <h1>AI-Assisted Booking Triage</h1>
+        </div>
+        <div id="disclaimer" class="disclaimer">Synthetic data / demo environment</div>
+      </header>
+
+      <div id="bookingWorkspace">
+        <main class="dashboard">
+        <section class="panel">
+          <h2>Case details</h2>
+
+          <div class="field-grid">
+            <label for="scenarioSelect">Customer type</label>
+            <select id="scenarioSelect" aria-label="Customer type selector">
+              <option value="new">New customer</option>
+              <option value="existing">Existing customer</option>
+            </select>
+
+            <label for="caseLabel">Case label</label>
+            <select id="caseLabel" aria-label="Case label selector">
+              <option value="BankID activation - Self">BankID activation - Self</option>
+              <option value="BankID activation - Other">BankID activation - Other</option>
+              <option value="Transfer to existing">Transfer to existing</option>
+              <option value="Account details change">Account details change</option>
+              <option value="Power of attorney">Power of attorney</option>
+              <option value="Other">Other</option>
+            </select>
+
+            <div id="caseDescriptionWrapper" hidden>
+              <label for="caseDescription">Case description</label>
+              <textarea id="caseDescription" placeholder="I need help with ..."></textarea>
+              <p id="caseDescriptionValueDisplay" class="description-value" hidden aria-live="polite">
+                Description quality: <strong id="caseDescriptionValue"></strong>
+              </p>
+            </div>
+          </div>
+
+          <div class="action-row">
+            <button id="analyzeButton" class="primary-btn" type="button">Analyse case</button>
+          </div>
+
+          <p id="formError" class="form-error" aria-live="polite"></p>
+
+          <div id="contextPreviewSection" class="meta-row" hidden>
+            <h3>Context preview</h3>
+          </div>
+          <ul id="contextPreview" class="context-list" hidden></ul>
+        </section>
+
+        <section id="triageCard" class="panel" hidden>
+          <div class="meta-row">
+            <h2>Triage recommendation</h2>
+            <span id="recommendationStatus" class="badge">Recommendation pending</span>
+          </div>
+
+          <div class="summary-grid">
+            <div class="summary-item"><span>Case type</span><strong id="triageCaseType">-</strong></div>
+            <div class="summary-item"><span>Complexity</span><strong id="triageComplexity">-</strong></div>
+            <div class="summary-item"><span>Duration band</span><strong id="triageDuration">-</strong></div>
+            <div class="summary-item"><span>Recommended capacity</span><strong id="triageCapacity">-</strong></div>
+            <div class="summary-item"><span>Confidence</span><strong id="triageConfidence">-</strong></div>
+          </div>
+
+          <div class="meta-row">
+            <h3>Reason messages</h3>
+          </div>
+          <ul id="triageReasons" class="reason-list"></ul>
+
+          <div class="meta-row">
+            <h3>Relevant context</h3>
+          </div>
+          <ul id="triageContext" class="context-list"></ul>
+
+          <p id="triageMeta" class="form-error" aria-live="polite"></p>
+        </section>
+        </main>
+
+        <section id="decisionPanel" class="panel" hidden>
+        <h2>Employee decision</h2>
+
+        <div class="decision-grid">
+          <label for="finalCategory">Final category</label>
+          <select id="finalCategory">
+            <option value="quick_case">quick_case</option>
+            <option value="standard_case">standard_case</option>
+            <option value="complex_case">complex_case</option>
+          </select>
+
+          <label for="overrideReason">Override reason</label>
+          <input id="overrideReason" type="text" placeholder="Reason for override or approval" />
+
+          <div class="action-row">
+            <button id="approvalButton" class="primary-btn" type="button">Approve recommendation</button>
+            <button id="overrideButton" class="secondary-btn" type="button">Use override</button>
+          </div>
+
+          <p id="decisionError" class="decision-error" aria-live="polite"></p>
+
+          <div>
+            <h3>Available slots</h3>
+            <div id="slotList" class="slot-list"></div>
+          </div>
+
+          <div class="action-row">
+            <button id="confirmButton" class="primary-btn" type="button">Confirm booking</button>
+          </div>
+
+          <p id="bookingError" class="booking-error" aria-live="polite"></p>
+        </div>
+        </section>
+      </div>
+
+      <section id="bookingPanel" class="panel booking-panel" hidden aria-live="polite">
+        <p class="eyebrow">Booking complete</p>
+        <h2>Confirmation</h2>
+        <p class="confirmation-lead">The customer appointment has been confirmed.</p>
+        <ul id="bookingDetails" class="booking-details"></ul>
+      </section>
+    </div>
+
+    <script src="./triage.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
