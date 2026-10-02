@@ -5,6 +5,7 @@ argument-hint: Provide the path of a requirement document to analyse.
 tools:
   - search/codebase
   - edit
+  - agent
 user-invocable: true
 disable-model-invocation: true
 ---
@@ -115,6 +116,21 @@ Use this table:
 - When information is missing, generate a clarification question instead of guessing.
 - Separate application requirements from testing recommendations.
 
+# Defect Handoff
+
+- Report a defect only when the supplied requirement document provides evidence
+  of a concrete product or implementation defect. Do not treat missing,
+  ambiguous, conflicting or untestable requirements as confirmed defects;
+  record those in the relevant analysis and clarification sections instead.
+- Before sending any defect details to DeveloperAgent, present the finding,
+  its evidence and proposed handoff to the user, and ask for explicit approval.
+- Do not invoke, message or otherwise send information to DeveloperAgent until
+  the user approves the handoff. If approval is declined, do not send it.
+- After approval, send DeveloperAgent the defect description, supporting
+  requirement text and identifiers, impact, and any relevant clarification or
+  assumptions. Do not modify the requirement document or claim the defect is
+  fixed.
+
 # Completion Summary
 
 After creating the files, display:
@@ -126,4 +142,5 @@ After creating the files, display:
 - Number of detailed test cases
 - Assumptions made
 - Files created
+- Defects found and DeveloperAgent handoff status
 - Items requiring human approval
