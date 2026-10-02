@@ -66,17 +66,17 @@
   };
 
   const scenarios = [
-    { id: 'D-001', label: 'BankID activation', description: 'I need help activating BankID.', customerContextId: 'CUSTCTX-0101', expected: { caseType: 'bank_id_support', complexity: 'quick', durationBand: '2_5', capacity: 'quick_case' } },
-    { id: 'D-002', label: 'BankID issue, unclear change', description: 'My BankID is not working but I cannot explain what changed.', customerContextId: 'CUSTCTX-0102', expected: { caseType: 'bank_id_support', complexity: 'standard', durationBand: '10_15', capacity: 'standard_case' } },
-    { id: 'D-003', label: 'Transfer to existing account', description: 'I want to transfer money to my existing account.', customerContextId: 'CUSTCTX-0103', expected: { caseType: 'payment_transfer', complexity: 'quick', durationBand: '2_5', capacity: 'quick_case' } },
-    { id: 'D-004', label: 'Account details change', description: 'I need to change my account details.', customerContextId: 'CUSTCTX-0104', expected: { caseType: 'account_change', complexity: 'standard', durationBand: '10_15', capacity: 'standard_case' } },
-    { id: 'D-005', label: 'Power of attorney case', description: 'I need help with a power of attorney changed last week.', customerContextId: 'CUSTCTX-0105', expected: { caseType: 'mandate_power_of_attorney', complexity: 'complex', durationBand: '20_30_plus', capacity: 'complex_case' } },
-    { id: 'D-006', label: 'Missing documents', description: 'I do not know which documents are missing for this change.', customerContextId: 'CUSTCTX-0104', expected: { caseType: 'missing_information', complexity: 'complex', durationBand: '20_30_plus', capacity: 'complex_case' } },
-    { id: 'D-007', label: 'Quick service question', description: 'I have a quick question about a service.', customerContextId: 'CUSTCTX-0101', expected: { caseType: 'information_question', complexity: 'quick', durationBand: '2_5', capacity: 'quick_case' } },
-    { id: 'D-008', label: 'Short text with recent change', description: 'BankID update.', customerContextId: 'CUSTCTX-0106', expected: { caseType: 'ambiguous_other', complexity: 'standard', durationBand: '10_15', capacity: 'standard_case' } },
-    { id: 'D-009', label: 'Employee override scenario', description: 'I need help activating BankID.', customerContextId: 'CUSTCTX-0101', expected: { caseType: 'bank_id_support', complexity: 'quick', durationBand: '2_5', capacity: 'quick_case' } },
-    { id: 'D-010', label: 'No capacity available', description: 'I need help with a power of attorney changed last week.', customerContextId: 'CUSTCTX-0105', expected: { caseType: 'mandate_power_of_attorney', complexity: 'complex', durationBand: '20_30_plus', capacity: 'complex_case' } },
-    { id: 'D-011', label: 'Triage failure simulation', description: 'This description will trigger the demo failure state.', customerContextId: 'CUSTCTX-0106', expected: { caseType: 'ambiguous_other', complexity: 'standard', durationBand: '10_15', capacity: 'standard_case' } }
+    { id: 'D-001', label: 'BankID activation', description: 'I need help activating BankID.', customerContextId: 'CUSTCTX-0101', caseLabel: 'BankID activation - Self', expected: { caseType: 'bank_id_support', complexity: 'quick', durationBand: '2_5', capacity: 'quick_case' } },
+    { id: 'D-002', label: 'BankID issue, unclear change', description: 'My BankID is not working but I cannot explain what changed.', customerContextId: 'CUSTCTX-0102', caseLabel: 'BankID activation - Other', expected: { caseType: 'bank_id_support', complexity: 'standard', durationBand: '10_15', capacity: 'standard_case' } },
+    { id: 'D-003', label: 'Transfer to existing account', description: 'I want to transfer money to my existing account.', customerContextId: 'CUSTCTX-0103', caseLabel: 'Transfer to existing', expected: { caseType: 'payment_transfer', complexity: 'quick', durationBand: '2_5', capacity: 'quick_case' } },
+    { id: 'D-004', label: 'Account details change', description: 'I need to change my account details.', customerContextId: 'CUSTCTX-0104', caseLabel: 'Account details change', expected: { caseType: 'account_change', complexity: 'standard', durationBand: '10_15', capacity: 'standard_case' } },
+    { id: 'D-005', label: 'Power of attorney case', description: 'I need help with a power of attorney changed last week.', customerContextId: 'CUSTCTX-0105', caseLabel: 'Power of attorney', expected: { caseType: 'mandate_power_of_attorney', complexity: 'complex', durationBand: '20_30_plus', capacity: 'complex_case' } },
+    { id: 'D-006', label: 'Missing documents', description: 'I do not know which documents are missing for this change.', customerContextId: 'CUSTCTX-0104', caseLabel: 'Other', expected: { caseType: 'missing_information', complexity: 'complex', durationBand: '20_30_plus', capacity: 'complex_case' } },
+    { id: 'D-007', label: 'Quick service question', description: 'I have a quick question about a service.', customerContextId: 'CUSTCTX-0101', caseLabel: 'Service information', expected: { caseType: 'information_question', complexity: 'quick', durationBand: '2_5', capacity: 'quick_case' } },
+    { id: 'D-008', label: 'Short text with recent change', description: 'BankID update.', customerContextId: 'CUSTCTX-0106', caseLabel: 'Other', expected: { caseType: 'ambiguous_other', complexity: 'standard', durationBand: '10_15', capacity: 'standard_case' } },
+    { id: 'D-009', label: 'Employee override scenario', description: 'I need help activating BankID.', customerContextId: 'CUSTCTX-0101', caseLabel: 'BankID activation - Self', expected: { caseType: 'bank_id_support', complexity: 'quick', durationBand: '2_5', capacity: 'quick_case' } },
+    { id: 'D-010', label: 'No capacity available', description: 'I need help with a power of attorney changed last week.', customerContextId: 'CUSTCTX-0105', caseLabel: 'Power of attorney', expected: { caseType: 'mandate_power_of_attorney', complexity: 'complex', durationBand: '20_30_plus', capacity: 'complex_case' } },
+    { id: 'D-011', label: 'Triage failure simulation', description: 'This triage service failed for a demo scenario.', customerContextId: 'CUSTCTX-0106', caseLabel: 'Other', expected: { caseType: 'ambiguous_other', complexity: 'standard', durationBand: '10_15', capacity: 'standard_case' } }
   ];
 
   function getScenarioById(id) {
@@ -266,7 +266,7 @@
       confidenceStatus = 'low';
     }
 
-    if (/\b(test|failure|error)\b/.test(normalized) && normalized.includes('triage')) {
+    if (/\b(test|failure|error|failed)\b/.test(normalized) && normalized.includes('triage')) {
       throw new Error('Triage service failed for the synthetic demo scenario.');
     }
 
@@ -331,6 +331,31 @@
     return slotMap[capacityType] || [];
   }
 
+  function getBookedSlotIds() {
+    try {
+      const raw = localStorage.getItem('demo_booked_slots_v1');
+      if (!raw) {
+        return new Set();
+      }
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        return new Set(parsed);
+      }
+      if (parsed && Array.isArray(parsed.bookedSlots)) {
+        return new Set(parsed.bookedSlots);
+      }
+    } catch (error) {
+      // Ignore malformed storage and treat it as an empty set.
+    }
+    return new Set();
+  }
+
+  function persistBookedSlot(slotId) {
+    const booked = getBookedSlotIds();
+    booked.add(slotId);
+    localStorage.setItem('demo_booked_slots_v1', JSON.stringify(Array.from(booked)));
+  }
+
   function createBooking({ triage, slotId, employeeDecision, finalCapacity, finalDurationBand, overrideReason }) {
     if (!triage || !slotId) {
       const error = new Error('A valid triage result and slot are required for booking.');
@@ -352,12 +377,15 @@
 
     const slots = getAvailability(finalCapacity, finalDurationBand, triage.scenarioId);
     const selectedSlot = slots.find((slot) => slot.slotId === slotId);
+    const alreadyBooked = getBookedSlotIds().has(slotId);
 
-    if (!selectedSlot || !selectedSlot.available) {
+    if (!selectedSlot || !selectedSlot.available || alreadyBooked) {
       const error = new Error('The selected slot is unavailable.');
       error.code = 'NO_CAPACITY';
       throw error;
     }
+
+    persistBookedSlot(slotId);
 
     return {
       bookingId: `BOOK-${Math.random().toString(36).slice(2, 7).toUpperCase()}`,

@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System X AI Booking Triage Demo</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand">
+          <p class="eyebrow">System X</p>
+          <h1>AI-Assisted Booking Triage</h1>
+        </div>
+        <div id="disclaimer" class="disclaimer">Synthetic data / demo environment</div>
+      </header>
+
+      <div id="bookingWorkspace">
+        <main class="dashboard">
+        <section class="panel">
+          <h2>Case details</h2>
+
+          <div class="field-grid">
+            <label for="scenarioSelect">Customer type</label>
+            <select id="scenarioSelect" aria-label="Customer type selector">
+              <option value="new">New customer</option>
+              <option value="existing">Existing customer</option>
+            </select>
+
+            <label for="caseLabel">Case label</label>
+            <select id="caseLabel" aria-label="Case label selector"><option value="Open account">Open account</option><option value="Service information">Service information</option></select>
+
+            <div id="caseDescriptionWrapper" hidden="">
+              <label for="caseDescription">Case description</label>
+              <textarea id="caseDescription" placeholder="I need help with ..." style=""></textarea>
+              <p id="caseDescriptionValueDisplay" class="description-value" aria-live="polite">
+                Description quality: <strong id="caseDescriptionValue">elaborated</strong>
+              </p>
+            </div>
+          </div>
+
+          <div class="action-row">
+            <button id="analyzeButton" class="primary-btn" type="button">Analyse case</button>
+          </div>
+
+          <p id="formError" class="form-error" aria-live="polite"></p>
+
+          <div id="contextPreviewSection" class="meta-row">
+            <h3>Context preview</h3>
+          </div>
+          <ul id="contextPreview" class="context-list"><li><span>customerContextId</span><strong>CUSTCTX-0101</strong></li><li><span>datasetVersion</span><strong>v1</strong></li><li><span>recentChange</span><strong>none</strong></li><li><span>informationCompleteness</span><strong>complete</strong></li><li><span>mandateStatus</span><strong>not_relevant</strong></li><li><span>similarActionHistory</span><strong>not_relevant</strong></li><li><span>additionalActionLikely</span><strong>no</strong></li></ul>
+        </section>
+
+        <section id="triageCard" class="panel">
+          <div class="meta-row">
+            <h2>Triage recommendation</h2>
+            <span id="recommendationStatus" class="badge">Recommendation requires employee review.</span>
+          </div>
+
+          <div class="summary-grid">
+            <div class="summary-item"><span>Case type</span><strong id="triageCaseType">mandate_power_of_attorney</strong></div>
+            <div class="summary-item"><span>Complexity</span><strong id="triageComplexity">complex</strong></div>
+            <div class="summary-item"><span>Duration band</span><strong id="triageDuration">20_30_plus</strong></div>
+            <div class="summary-item"><span>Recommended capacity</span><strong id="triageCapacity">complex_case</strong></div>
+            <div class="summary-item"><span>Confidence</span><strong id="triageConfidence">low · deterministic mock</strong></div>
+          </div>
+
+          <div class="meta-row">
+            <h3>Reason messages</h3>
+          </div>
+          <ul id="triageReasons" class="reason-list"><li><strong>verification_needed</strong><span>The case appears to involve a mandate or verification step.</span></li><li><strong>recent_change</strong><span>A recent change combined with an unclear mandate increases the likely work required.</span></li></ul>
+
+          <div class="meta-row">
+            <h3>Relevant context</h3>
+          </div>
+          <ul id="triageContext" class="context-list"><li><span>customerContextId</span><strong>CUSTCTX-0101</strong></li><li><span>datasetVersion</span><strong>v1</strong></li><li><span>recentChange</span><strong>none</strong></li><li><span>informationCompleteness</span><strong>complete</strong></li><li><span>mandateStatus</span><strong>not_relevant</strong></li><li><span>similarActionHistory</span><strong>not_relevant</strong></li><li><span>additionalActionLikely</span><strong>no</strong></li></ul>
+
+          <p id="triageMeta" class="form-error" aria-live="polite">Dataset v1 · Rules v1</p>
+        </section>
+        </main>
+
+        <section id="decisionPanel" class="panel">
+        <h2>Employee decision</h2>
+
+        <div class="decision-grid">
+          <label for="finalCategory">Final category</label>
+          <select id="finalCategory"><option value="quick_case">quick_case</option><option value="standard_case">standard_case</option><option value="complex_case" selected="">complex_case</option></select>
+
+          <label for="overrideReason">Override reason</label>
+          <input id="overrideReason" type="text" placeholder="Reason for override or approval" style="">
+
+          <div class="action-row">
+            <button id="approvalButton" class="primary-btn" type="button">Approve recommendation</button>
+            <button id="overrideButton" class="secondary-btn" type="button">Use override</button>
+          </div>
+
+          <p id="decisionError" class="decision-error" aria-live="polite"></p>
+
+          <div>
+            <h3>Available slots</h3>
+            <div id="slotList" class="slot-list">
+          <button type="button" class="slot-button " data-slot-id="SLOT-3001">
+            <span>13:00</span>
+            <strong>SLOT-3001</strong>
+          </button>
+        
+          <button type="button" class="slot-button " data-slot-id="SLOT-3002">
+            <span>13:30</span>
+            <strong>SLOT-3002</strong>
+          </button>
+        </div>
+          </div>
+
+          <div class="action-row">
+            <button id="confirmButton" class="primary-btn" type="button">Confirm booking</button>
+          </div>
+
+          <p id="bookingError" class="booking-error" aria-live="polite"></p>
+        </div>
+        </section>
+      </div>
+
+      <section id="bookingPanel" class="panel booking-panel" hidden="" aria-live="polite">
+        <p class="eyebrow">Booking complete</p>
+        <h2>Confirmation</h2>
+        <p class="confirmation-lead">The customer appointment has been confirmed.</p>
+        <ul id="bookingDetails" class="booking-details"></ul>
+      </section>
+    </div>
+
+    <script src="./triage.js"></script>
+    <script src="./app.js"></script>
+  
+
+</body></html>

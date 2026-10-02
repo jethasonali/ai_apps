@@ -37,6 +37,19 @@
       'Other'
     ]
   };
+  const scenarioCaseLabelMap = {
+    'D-001': 'BankID activation - Self',
+    'D-002': 'BankID activation - Other',
+    'D-003': 'Transfer to existing',
+    'D-004': 'Account details change',
+    'D-005': 'Power of attorney',
+    'D-006': 'Other',
+    'D-007': 'Service information',
+    'D-008': 'Other',
+    'D-009': 'BankID activation - Self',
+    'D-010': 'Power of attorney',
+    'D-011': 'Other'
+  };
   const contextPreview = document.getElementById('contextPreview');
   const formError = document.getElementById('formError');
   const analyzeButton = document.getElementById('analyzeButton');
@@ -83,16 +96,28 @@
     caseDescriptionWrapper.hidden = !hasSelectedLabel;
   }
 
+  function refreshCaseLabels(customerType) {
+    const labelSet = caseLabelOptions[customerType] || caseLabelOptions.existing;
+    caseLabelSelect.innerHTML = labelSet
+      .map((label) => `<option value="${label}">${label}</option>`)
+      .join('');
+    caseLabelSelect.selectedIndex = -1;
+    caseLabelSelect.value = '';
+  }
+
   function applyScenario(scenarioId) {
-    const customerType = scenarioId === customerTypeMap.existing ? 'existing' : 'new';
+    const scenario = getScenarioById(scenarioId) || scenarios[0];
+    const customerType = scenario.customerContextId === 'CUSTCTX-0101' || scenario.customerContextId === 'CUSTCTX-0102' || scenario.customerContextId === 'CUSTCTX-0103' || scenario.customerContextId === 'CUSTCTX-0104' || scenario.customerContextId === 'CUSTCTX-0105' || scenario.customerContextId === 'CUSTCTX-0106' ? 'existing' : 'new';
     state.selectedCustomerType = customerType;
-    state.selectedScenarioId = customerTypeMap[customerType];
+    state.selectedScenarioId = scenario.id;
     scenarioSelect.value = customerType;
 
-    const scenario = getScenarioById(state.selectedScenarioId) || scenarios[0];
-    caseDescriptionInput.value = '';
+    refreshCaseLabels(customerType);
+
+    const caseLabel = scenarioCaseLabelMap[scenario.id] || caseLabelOptions.existing[0];
+    caseLabelSelect.value = caseLabel;
+    caseDescriptionInput.value = scenario.description;
     caseDescriptionInput.placeholder = 'I need help with ...';
-    caseLabelSelect.value = '';
     state.previousDescription = scenario.description;
 
     const context = getCustomerContext(scenario.customerContextId) || {};
@@ -104,7 +129,12 @@
 
     disclaimer.textContent = 'Synthetic data / demo environment';
     clearTriageState();
+    caseLabelSelect.dispatchEvent(new Event('change', { bubbles: true }));
   }
+
+  window.applyScenarioById = function (id) {
+    applyScenario(id);
+  };
 
   function clearTriageState() {
     state.triageResult = null;
@@ -231,7 +261,7 @@
 
     state.employeeDecision = 'overridden';
     state.selectedFinalCategory = finalCategorySelect.value;
-    decisionError.textContent = `Override captured: ${overrideReason}`;
+    decisionError.textContent = '';
     renderSlots(getAvailability(state.selectedFinalCategory, state.triageResult.durationBand, state.selectedScenarioId));
   }
 
@@ -248,9 +278,10 @@
 
   scenarioSelect.addEventListener('change', (event) => {
     const customerType = event.target.value;
-    updateCaseLabelOptions(customerType);
+    refreshCaseLabels(customerType);
     updateDescriptionVisibility();
-    applyScenario(customerTypeMap[customerType] || customerTypeMap.new);
+    const scenarioId = customerTypeMap[customerType] || 'D-001';
+    applyScenario(scenarioId);
   });
 
   caseLabelSelect.addEventListener('change', () => {
