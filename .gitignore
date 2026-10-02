@@ -21,3 +21,6 @@ rad.json
 *.flf
 #Test results file
 TestResults.xml
+
+# Ignore duplicate nested repo used only for backup/reference
+ai_apps/
